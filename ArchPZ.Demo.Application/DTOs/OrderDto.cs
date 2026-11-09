@@ -1,8 +1,5 @@
-namespace ArchPZ.Demo.Application.DTOs;
+﻿namespace ArchPZ.Demo.Application.DTOs;
 
-/// <summary>
-/// Data Transfer Object для замовлення
-/// </summary>
 public class OrderDto
 {
     public Guid Id { get; set; }

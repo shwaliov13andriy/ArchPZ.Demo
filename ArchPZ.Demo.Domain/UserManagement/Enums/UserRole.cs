@@ -1,4 +1,4 @@
-namespace ArchPZ.Demo.Domain.UserManagement.Enums;
+﻿namespace ArchPZ.Demo.Domain.UserManagement.Enums;
 
 public enum UserRole
 {

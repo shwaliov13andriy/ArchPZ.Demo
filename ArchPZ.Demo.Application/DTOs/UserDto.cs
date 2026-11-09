@@ -1,4 +1,4 @@
-namespace ArchPZ.Demo.Application.DTOs;
+﻿namespace ArchPZ.Demo.Application.DTOs;
 
 public class UserDto
 {

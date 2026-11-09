@@ -1,8 +1,5 @@
-namespace ArchPZ.Demo.Domain.OrderManagement.Enums;
+﻿namespace ArchPZ.Demo.Domain.OrderManagement.Enums;
 
-/// <summary>
-/// Статуси замовлення
-/// </summary>
 public enum OrderStatus
 {
     Pending = 0,

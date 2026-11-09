@@ -1,4 +1,4 @@
-namespace ArchPZ.Demo.Application.UserManagement.Commands;
+﻿namespace ArchPZ.Demo.Application.UserManagement.Commands;
 
 using MediatR;
 using ArchPZ.Demo.Application.DTOs;

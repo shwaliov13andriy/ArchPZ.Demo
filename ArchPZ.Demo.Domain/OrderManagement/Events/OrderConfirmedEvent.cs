@@ -1,4 +1,4 @@
-namespace ArchPZ.Demo.Domain.OrderManagement.Events;
+﻿namespace ArchPZ.Demo.Domain.OrderManagement.Events;
 
 using ArchPZ.Demo.Domain.Common;
 

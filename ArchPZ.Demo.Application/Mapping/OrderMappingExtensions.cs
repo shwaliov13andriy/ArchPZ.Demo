@@ -1,11 +1,8 @@
-namespace ArchPZ.Demo.Application.Mapping;
+﻿namespace ArchPZ.Demo.Application.Mapping;
 
 using ArchPZ.Demo.Application.DTOs;
 using ArchPZ.Demo.Domain.OrderManagement.Entities;
 
-/// <summary>
-/// Методи розширення для маппінгу між доменними моделями та DTO
-/// </summary>
 public static class OrderMappingExtensions
 {
     public static OrderDto ToDto(this Order order)

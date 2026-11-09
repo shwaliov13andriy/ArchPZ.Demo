@@ -1,4 +1,4 @@
-namespace ArchPZ.Demo.Application.OrderManagement.Commands;
+﻿namespace ArchPZ.Demo.Application.OrderManagement.Commands;
 
 using MediatR;
 

@@ -1,11 +1,7 @@
-namespace ArchPZ.Demo.Domain.OrderManagement.Repositories;
+﻿namespace ArchPZ.Demo.Domain.OrderManagement.Repositories;
 
 using ArchPZ.Demo.Domain.OrderManagement.Entities;
 
-/// <summary>
-/// Інтерфейс репозиторію замовлень.
-/// Визначається в Domain, реалізується в Infrastructure.
-/// </summary>
 public interface IOrderRepository
 {
     Task<Order?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);

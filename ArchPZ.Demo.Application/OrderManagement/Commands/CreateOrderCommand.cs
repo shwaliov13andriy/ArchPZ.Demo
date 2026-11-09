@@ -1,11 +1,8 @@
-namespace ArchPZ.Demo.Application.OrderManagement.Commands;
+﻿namespace ArchPZ.Demo.Application.OrderManagement.Commands;
 
 using MediatR;
 using ArchPZ.Demo.Application.DTOs;
 
-/// <summary>
-/// Команда створення нового замовлення (CQRS: Command)
-/// </summary>
 public record CreateOrderCommand : IRequest<OrderDto>
 {
     public Guid CustomerId { get; init; }

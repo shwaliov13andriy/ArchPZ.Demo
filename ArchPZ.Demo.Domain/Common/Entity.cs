@@ -1,4 +1,4 @@
-namespace ArchPZ.Demo.Domain.Common;
+﻿namespace ArchPZ.Demo.Domain.Common;
 
 public abstract class Entity
 {

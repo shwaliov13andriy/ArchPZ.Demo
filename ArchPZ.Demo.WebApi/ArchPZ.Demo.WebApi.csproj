@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <!-- WebApi залежить від усіх шарів для Dependency Injection -->
         <ProjectReference Include="..\ArchPZ.Demo.Application\ArchPZ.Demo.Application.csproj" />
         <ProjectReference Include="..\ArchPZ.Demo.Infrastructure\ArchPZ.Demo.Infrastructure.csproj" />
     </ItemGroup>

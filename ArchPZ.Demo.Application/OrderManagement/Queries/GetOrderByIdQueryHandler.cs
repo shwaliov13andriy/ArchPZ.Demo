@@ -1,4 +1,4 @@
-namespace ArchPZ.Demo.Application.OrderManagement.Queries;
+﻿namespace ArchPZ.Demo.Application.OrderManagement.Queries;
 
 using MediatR;
 using ArchPZ.Demo.Application.DTOs;

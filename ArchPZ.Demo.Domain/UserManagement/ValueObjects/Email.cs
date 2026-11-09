@@ -1,11 +1,8 @@
-namespace ArchPZ.Demo.Domain.UserManagement.ValueObjects;
+﻿namespace ArchPZ.Demo.Domain.UserManagement.ValueObjects;
 
 using System.Text.RegularExpressions;
 using ArchPZ.Demo.Domain.Common;
 
-/// <summary>
-/// Value Object — Електронна адреса з валідацією формату.
-/// </summary>
 public class Email : ValueObject
 {
     public string Value { get; }
@@ -13,10 +10,10 @@ public class Email : ValueObject
     public Email(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
-            throw new ArgumentException("Email не може бути порожнім.", nameof(value));
+            throw new ArgumentException("Email РЅРµ РјРѕР¶Рµ Р±СѓС‚Рё РїРѕСЂРѕР¶РЅС–Рј.", nameof(value));
 
         if (!Regex.IsMatch(value, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-            throw new ArgumentException("Невірний формат email.", nameof(value));
+            throw new ArgumentException("РќРµРІС–СЂРЅРёР№ С„РѕСЂРјР°С‚ email.", nameof(value));
 
         Value = value.ToLowerInvariant();
     }

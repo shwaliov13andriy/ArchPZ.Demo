@@ -1,11 +1,7 @@
-namespace ArchPZ.Demo.Domain.OrderManagement.ValueObjects;
+﻿namespace ArchPZ.Demo.Domain.OrderManagement.ValueObjects;
 
 using ArchPZ.Demo.Domain.Common;
 
-/// <summary>
-/// Value Object — Адреса доставки.
-/// Незмінний об'єкт, що порівнюється за значенням, а не за посиланням.
-/// </summary>
 public class Address : ValueObject
 {
     public string Street { get; }
@@ -16,13 +12,13 @@ public class Address : ValueObject
     public Address(string street, string city, string zipCode, string country)
     {
         if (string.IsNullOrWhiteSpace(street))
-            throw new ArgumentException("Вулиця не може бути порожньою.", nameof(street));
+            throw new ArgumentException("Р’СѓР»РёС†СЏ РЅРµ РјРѕР¶Рµ Р±СѓС‚Рё РїРѕСЂРѕР¶РЅСЊРѕСЋ.", nameof(street));
         if (string.IsNullOrWhiteSpace(city))
-            throw new ArgumentException("Місто не може бути порожнім.", nameof(city));
+            throw new ArgumentException("РњС–СЃС‚Рѕ РЅРµ РјРѕР¶Рµ Р±СѓС‚Рё РїРѕСЂРѕР¶РЅС–Рј.", nameof(city));
         if (string.IsNullOrWhiteSpace(zipCode))
-            throw new ArgumentException("Поштовий індекс не може бути порожнім.", nameof(zipCode));
+            throw new ArgumentException("РџРѕС€С‚РѕРІРёР№ С–РЅРґРµРєСЃ РЅРµ РјРѕР¶Рµ Р±СѓС‚Рё РїРѕСЂРѕР¶РЅС–Рј.", nameof(zipCode));
         if (string.IsNullOrWhiteSpace(country))
-            throw new ArgumentException("Країна не може бути порожньою.", nameof(country));
+            throw new ArgumentException("РљСЂР°С—РЅР° РЅРµ РјРѕР¶Рµ Р±СѓС‚Рё РїРѕСЂРѕР¶РЅСЊРѕСЋ.", nameof(country));
 
         Street = street;
         City = city;

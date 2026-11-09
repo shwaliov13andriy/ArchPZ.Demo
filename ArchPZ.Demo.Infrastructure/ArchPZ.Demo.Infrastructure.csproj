@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <!-- Infrastructure залежить від Domain та Application -->
         <ProjectReference Include="..\ArchPZ.Demo.Domain\ArchPZ.Demo.Domain.csproj" />
         <ProjectReference Include="..\ArchPZ.Demo.Application\ArchPZ.Demo.Application.csproj" />
     </ItemGroup>

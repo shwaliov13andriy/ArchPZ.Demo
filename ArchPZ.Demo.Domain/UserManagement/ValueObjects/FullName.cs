@@ -1,10 +1,7 @@
-namespace ArchPZ.Demo.Domain.UserManagement.ValueObjects;
+﻿namespace ArchPZ.Demo.Domain.UserManagement.ValueObjects;
 
 using ArchPZ.Demo.Domain.Common;
 
-/// <summary>
-/// Value Object — Повне ім'я користувача.
-/// </summary>
 public class FullName : ValueObject
 {
     public string FirstName { get; }
@@ -13,9 +10,9 @@ public class FullName : ValueObject
     public FullName(string firstName, string lastName)
     {
         if (string.IsNullOrWhiteSpace(firstName))
-            throw new ArgumentException("Ім'я не може бути порожнім.", nameof(firstName));
+            throw new ArgumentException("Р†Рј'СЏ РЅРµ РјРѕР¶Рµ Р±СѓС‚Рё РїРѕСЂРѕР¶РЅС–Рј.", nameof(firstName));
         if (string.IsNullOrWhiteSpace(lastName))
-            throw new ArgumentException("Прізвище не може бути порожнім.", nameof(lastName));
+            throw new ArgumentException("РџСЂС–Р·РІРёС‰Рµ РЅРµ РјРѕР¶Рµ Р±СѓС‚Рё РїРѕСЂРѕР¶РЅС–Рј.", nameof(lastName));
 
         FirstName = firstName;
         LastName = lastName;

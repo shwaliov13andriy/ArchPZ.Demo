@@ -1,4 +1,4 @@
-namespace ArchPZ.Demo.WebApi.Controllers;
+﻿namespace ArchPZ.Demo.WebApi.Controllers;
 
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -6,9 +6,6 @@ using ArchPZ.Demo.Application.DTOs;
 using ArchPZ.Demo.Application.UserManagement.Commands;
 using ArchPZ.Demo.Application.UserManagement.Queries;
 
-/// <summary>
-/// Контролер управління користувачами.
-/// </summary>
 [ApiController]
 [Route("api/[controller]")]
 public class UsersController : ControllerBase
@@ -20,9 +17,6 @@ public class UsersController : ControllerBase
         _mediator = mediator;
     }
 
-    /// <summary>
-    /// Отримати користувача за Id
-    /// </summary>
     [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -31,14 +25,11 @@ public class UsersController : ControllerBase
         var user = await _mediator.Send(new GetUserByIdQuery(id), cancellationToken);
 
         if (user is null)
-            return NotFound(new { Message = $"Користувача з Id '{id}' не знайдено." });
+            return NotFound(new { Message = $"РљРѕСЂРёСЃС‚СѓРІР°С‡Р° Р· Id '{id}' РЅРµ Р·РЅР°Р№РґРµРЅРѕ." });
 
         return Ok(user);
     }
 
-    /// <summary>
-    /// Створити нового користувача
-    /// </summary>
     [HttpPost]
     [ProducesResponseType(typeof(UserDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

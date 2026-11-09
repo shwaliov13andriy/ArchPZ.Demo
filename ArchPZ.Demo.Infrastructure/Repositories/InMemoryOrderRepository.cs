@@ -1,13 +1,8 @@
-namespace ArchPZ.Demo.Infrastructure.Repositories;
+﻿namespace ArchPZ.Demo.Infrastructure.Repositories;
 
 using ArchPZ.Demo.Domain.OrderManagement.Entities;
 using ArchPZ.Demo.Domain.OrderManagement.Repositories;
 
-/// <summary>
-/// In-Memory реалізація репозиторію замовлень.
-/// У реальному проєкті тут була б робота з EF Core / Dapper / іншою ORM.
-/// Реалізація визначена в Infrastructure, інтерфейс — у Domain.
-/// </summary>
 public class InMemoryOrderRepository : IOrderRepository
 {
     private readonly List<Order> _orders = new();

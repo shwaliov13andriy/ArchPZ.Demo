@@ -1,4 +1,4 @@
-namespace ArchPZ.Demo.WebApi.Controllers;
+﻿namespace ArchPZ.Demo.WebApi.Controllers;
 
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -6,15 +6,6 @@ using ArchPZ.Demo.Application.DTOs;
 using ArchPZ.Demo.Application.OrderManagement.Commands;
 using ArchPZ.Demo.Application.OrderManagement.Queries;
 
-/// <summary>
-/// Контролер управління замовленнями.
-/// 
-/// Контролер є "тонким" — він НЕ містить бізнес-логіки.
-/// Його відповідальність: приймати HTTP-запити, передавати їх
-/// до Application шару через MediatR, та повертати HTTP-відповіді.
-/// 
-/// Потік керування: Controller → MediatR → Handler → Domain → Repository
-/// </summary>
 [ApiController]
 [Route("api/[controller]")]
 public class OrdersController : ControllerBase
@@ -26,9 +17,6 @@ public class OrdersController : ControllerBase
         _mediator = mediator;
     }
 
-    /// <summary>
-    /// Отримати всі замовлення
-    /// </summary>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyList<OrderDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
@@ -37,9 +25,6 @@ public class OrdersController : ControllerBase
         return Ok(orders);
     }
 
-    /// <summary>
-    /// Отримати замовлення за Id
-    /// </summary>
     [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(OrderDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -48,14 +33,11 @@ public class OrdersController : ControllerBase
         var order = await _mediator.Send(new GetOrderByIdQuery(id), cancellationToken);
 
         if (order is null)
-            return NotFound(new { Message = $"Замовлення з Id '{id}' не знайдено." });
+            return NotFound(new { Message = $"Р—Р°РјРѕРІР»РµРЅРЅСЏ Р· Id '{id}' РЅРµ Р·РЅР°Р№РґРµРЅРѕ." });
 
         return Ok(order);
     }
 
-    /// <summary>
-    /// Створити нове замовлення
-    /// </summary>
     [HttpPost]
     [ProducesResponseType(typeof(OrderDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -74,9 +56,6 @@ public class OrdersController : ControllerBase
         }
     }
 
-    /// <summary>
-    /// Підтвердити замовлення
-    /// </summary>
     [HttpPut("{id:guid}/confirm")]
     [ProducesResponseType(typeof(OrderDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -88,7 +67,7 @@ public class OrdersController : ControllerBase
             var order = await _mediator.Send(new ConfirmOrderCommand(id), cancellationToken);
             return Ok(order);
         }
-        catch (InvalidOperationException ex) when (ex.Message.Contains("не знайдено"))
+        catch (InvalidOperationException ex) when (ex.Message.Contains("РЅРµ Р·РЅР°Р№РґРµРЅРѕ"))
         {
             return NotFound(new { ex.Message });
         }
@@ -98,9 +77,6 @@ public class OrdersController : ControllerBase
         }
     }
 
-    /// <summary>
-    /// Скасувати замовлення
-    /// </summary>
     [HttpPut("{id:guid}/cancel")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -112,7 +88,7 @@ public class OrdersController : ControllerBase
             await _mediator.Send(new CancelOrderCommand(id), cancellationToken);
             return NoContent();
         }
-        catch (InvalidOperationException ex) when (ex.Message.Contains("не знайдено"))
+        catch (InvalidOperationException ex) when (ex.Message.Contains("РЅРµ Р·РЅР°Р№РґРµРЅРѕ"))
         {
             return NotFound(new { ex.Message });
         }

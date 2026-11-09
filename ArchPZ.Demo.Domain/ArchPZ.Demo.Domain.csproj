@@ -6,6 +6,4 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
-    <!-- Domain має НУЛЬ залежностей — повністю ізольований шар -->
-
 </Project>

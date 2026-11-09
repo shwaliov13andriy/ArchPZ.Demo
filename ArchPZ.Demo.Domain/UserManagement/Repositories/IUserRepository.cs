@@ -1,11 +1,7 @@
-namespace ArchPZ.Demo.Domain.UserManagement.Repositories;
+﻿namespace ArchPZ.Demo.Domain.UserManagement.Repositories;
 
 using ArchPZ.Demo.Domain.UserManagement.Entities;
 
-/// <summary>
-/// Інтерфейс репозиторію користувачів.
-/// Визначається в Domain, реалізується в Infrastructure.
-/// </summary>
 public interface IUserRepository
 {
     Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);

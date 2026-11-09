@@ -1,10 +1,7 @@
-namespace ArchPZ.Demo.Domain.OrderManagement.ValueObjects;
+﻿namespace ArchPZ.Demo.Domain.OrderManagement.ValueObjects;
 
 using ArchPZ.Demo.Domain.Common;
 
-/// <summary>
-/// Value Object — Грошова сума з валютою.
-/// </summary>
 public class Money : ValueObject
 {
     public decimal Amount { get; }
@@ -13,9 +10,9 @@ public class Money : ValueObject
     public Money(decimal amount, string currency)
     {
         if (amount < 0)
-            throw new ArgumentException("Сума не може бути від'ємною.", nameof(amount));
+            throw new ArgumentException("РЎСѓРјР° РЅРµ РјРѕР¶Рµ Р±СѓС‚Рё РІС–Рґ'С”РјРЅРѕСЋ.", nameof(amount));
         if (string.IsNullOrWhiteSpace(currency))
-            throw new ArgumentException("Валюта не може бути порожньою.", nameof(currency));
+            throw new ArgumentException("Р’Р°Р»СЋС‚Р° РЅРµ РјРѕР¶Рµ Р±СѓС‚Рё РїРѕСЂРѕР¶РЅСЊРѕСЋ.", nameof(currency));
 
         Amount = amount;
         Currency = currency.ToUpperInvariant();
@@ -24,7 +21,7 @@ public class Money : ValueObject
     public Money Add(Money other)
     {
         if (Currency != other.Currency)
-            throw new InvalidOperationException("Не можна додати суми в різних валютах.");
+            throw new InvalidOperationException("РќРµ РјРѕР¶РЅР° РґРѕРґР°С‚Рё СЃСѓРјРё РІ СЂС–Р·РЅРёС… РІР°Р»СЋС‚Р°С….");
         return new Money(Amount + other.Amount, Currency);
     }
 

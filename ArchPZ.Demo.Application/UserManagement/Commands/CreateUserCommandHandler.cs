@@ -1,4 +1,4 @@
-namespace ArchPZ.Demo.Application.UserManagement.Commands;
+﻿namespace ArchPZ.Demo.Application.UserManagement.Commands;
 
 using MediatR;
 using ArchPZ.Demo.Application.DTOs;
@@ -18,10 +18,9 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserD
 
     public async Task<UserDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
-        // Перевірка унікальності email
         var existingUser = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
         if (existingUser != null)
-            throw new InvalidOperationException($"Користувач з email '{request.Email}' вже існує.");
+            throw new InvalidOperationException($"РљРѕСЂРёСЃС‚СѓРІР°С‡ Р· email '{request.Email}' РІР¶Рµ С–СЃРЅСѓС”.");
 
         var name = new FullName(request.FirstName, request.LastName);
         var email = new Email(request.Email);

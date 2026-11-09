@@ -1,11 +1,8 @@
-namespace ArchPZ.Demo.Infrastructure.Repositories;
+﻿namespace ArchPZ.Demo.Infrastructure.Repositories;
 
 using ArchPZ.Demo.Domain.UserManagement.Entities;
 using ArchPZ.Demo.Domain.UserManagement.Repositories;
 
-/// <summary>
-/// In-Memory реалізація репозиторію користувачів.
-/// </summary>
 public class InMemoryUserRepository : IUserRepository
 {
     private readonly List<User> _users = new();

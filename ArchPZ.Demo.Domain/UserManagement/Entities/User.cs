@@ -1,12 +1,9 @@
-namespace ArchPZ.Demo.Domain.UserManagement.Entities;
+﻿namespace ArchPZ.Demo.Domain.UserManagement.Entities;
 
 using ArchPZ.Demo.Domain.Common;
 using ArchPZ.Demo.Domain.UserManagement.Enums;
 using ArchPZ.Demo.Domain.UserManagement.ValueObjects;
 
-/// <summary>
-/// Aggregate Root — Користувач системи.
-/// </summary>
 public class User : AggregateRoot
 {
     public FullName Name { get; private set; }
@@ -14,7 +11,6 @@ public class User : AggregateRoot
     public UserRole Role { get; private set; }
     public bool IsActive { get; private set; }
 
-    // Для ORM
     private User() : base()
     {
         Name = null!;
@@ -47,7 +43,7 @@ public class User : AggregateRoot
     public void Deactivate()
     {
         if (!IsActive)
-            throw new InvalidOperationException("Користувача вже деактивовано.");
+            throw new InvalidOperationException("РљРѕСЂРёСЃС‚СѓРІР°С‡Р° РІР¶Рµ РґРµР°РєС‚РёРІРѕРІР°РЅРѕ.");
         IsActive = false;
         UpdatedAt = DateTime.UtcNow;
     }
@@ -55,7 +51,7 @@ public class User : AggregateRoot
     public void Activate()
     {
         if (IsActive)
-            throw new InvalidOperationException("Користувач вже активний.");
+            throw new InvalidOperationException("РљРѕСЂРёСЃС‚СѓРІР°С‡ РІР¶Рµ Р°РєС‚РёРІРЅРёР№.");
         IsActive = true;
         UpdatedAt = DateTime.UtcNow;
     }
