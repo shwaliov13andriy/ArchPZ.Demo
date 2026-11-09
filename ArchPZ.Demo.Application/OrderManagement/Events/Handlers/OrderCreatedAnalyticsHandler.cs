@@ -1,23 +1,20 @@
 namespace ArchPZ.Demo.Application.OrderManagement.Events.Handlers;
 
-using Microsoft.Extensions.Logging;
+using ArchPZ.Demo.Application.Contracts;
 using ArchPZ.Demo.Application.Events;
 
 public class OrderCreatedAnalyticsHandler : IEventHandler<OrderCreatedEvent>
 {
-    private readonly ILogger<OrderCreatedAnalyticsHandler> _logger;
+    private readonly ILoggerService _logger;
 
-    public OrderCreatedAnalyticsHandler(ILogger<OrderCreatedAnalyticsHandler> logger)
+    public OrderCreatedAnalyticsHandler(ILoggerService logger)
     {
         _logger = logger;
     }
 
     public Task HandleAsync(OrderCreatedEvent evt, CancellationToken ct = default)
     {
-        _logger.LogInformation(
-            "Analytics recorded for order {OrderId}. Amount: {TotalAmount}",
-            evt.OrderId, evt.TotalAmount);
-
+        _logger.LogInfo($"Analytics recorded for order {evt.OrderId}. Amount: {evt.TotalAmount}");
         return Task.CompletedTask;
     }
 }

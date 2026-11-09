@@ -1,23 +1,20 @@
 namespace ArchPZ.Demo.Application.OrderManagement.Events.Handlers;
 
-using Microsoft.Extensions.Logging;
+using ArchPZ.Demo.Application.Contracts;
 using ArchPZ.Demo.Application.Events;
 
 public class OrderCreatedNotificationHandler : IEventHandler<OrderCreatedEvent>
 {
-    private readonly ILogger<OrderCreatedNotificationHandler> _logger;
+    private readonly ILoggerService _logger;
 
-    public OrderCreatedNotificationHandler(ILogger<OrderCreatedNotificationHandler> logger)
+    public OrderCreatedNotificationHandler(ILoggerService logger)
     {
         _logger = logger;
     }
 
     public Task HandleAsync(OrderCreatedEvent evt, CancellationToken ct = default)
     {
-        _logger.LogInformation(
-            "Notification sent for order {OrderId}. Customer: {CustomerName}, Total: {TotalAmount}",
-            evt.OrderId, evt.CustomerName, evt.TotalAmount);
-
+        _logger.LogInfo($"Notification sent for order {evt.OrderId}. Customer: {evt.CustomerName}, Total: {evt.TotalAmount}");
         return Task.CompletedTask;
     }
 }

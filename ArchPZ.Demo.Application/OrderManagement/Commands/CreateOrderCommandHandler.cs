@@ -5,8 +5,8 @@ using ArchPZ.Demo.Application.DTOs;
 using ArchPZ.Demo.Application.Events;
 using ArchPZ.Demo.Application.Mapping;
 using ArchPZ.Demo.Application.OrderManagement.Events;
+using ArchPZ.Demo.Application.OrderManagement.Factories;
 using ArchPZ.Demo.Domain.Contracts;
-using ArchPZ.Demo.Domain.OrderManagement.Entities;
 using ArchPZ.Demo.Domain.OrderManagement.Repositories;
 using ArchPZ.Demo.Domain.OrderManagement.ValueObjects;
 
@@ -15,15 +15,18 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Ord
     private readonly IOrderRepository _orderRepository;
     private readonly ICustomerValidationService _customerValidationService;
     private readonly IEventBus _bus;
+    private readonly IOrderFactory _orderFactory;
 
     public CreateOrderCommandHandler(
         IOrderRepository orderRepository,
         ICustomerValidationService customerValidationService,
-        IEventBus bus)
+        IEventBus bus,
+        IOrderFactory orderFactory)
     {
         _orderRepository = orderRepository;
         _customerValidationService = customerValidationService;
         _bus = bus;
+        _orderFactory = orderFactory;
     }
 
     public async Task<OrderDto> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
@@ -35,13 +38,7 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Ord
             throw new InvalidOperationException($"Клієнта з Id '{request.CustomerId}' не знайдено.");
 
         var address = new Address(request.Street, request.City, request.ZipCode, request.Country);
-        var order = Order.Create(request.CustomerId, address, request.Notes);
-
-        foreach (var item in request.Items)
-        {
-            var unitPrice = new Money(item.UnitPrice, item.Currency);
-            order.AddItem(item.ProductId, item.ProductName, item.Quantity, unitPrice);
-        }
+        var order = _orderFactory.CreateNewOrder(request, address);
 
         await _orderRepository.AddAsync(order, cancellationToken);
 
