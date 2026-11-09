@@ -15,16 +15,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="95e4088d-88d7-45b2-a4f1-f6b740bde638" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ArchPZ.Demo.WebApi/ArchPZ.Demo.WebApi.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ArchPZ.Demo.WebApi/ArchPZ.Demo.WebApi.http" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ArchPZ.Demo.WebApi/Controllers/WeatherForecastController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ArchPZ.Demo.WebApi/Program.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ArchPZ.Demo.WebApi/Properties/launchSettings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ArchPZ.Demo.WebApi/WeatherForecast.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ArchPZ.Demo.WebApi/appsettings.Development.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ArchPZ.Demo.WebApi/appsettings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ArchPZ.Demo.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ArchPZ.Demo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ArchPZ.Demo/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,11 +25,23 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3,
-  "fromUser": false
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "shwaliov13andriy"
+  }
 }]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/shwaliov13andriy/ArchPZ.Demo.git",
+    "accountId": "e3ed85f7-bbe3-4a0e-8211-1fcdb3423644"
+  }
+}]]></component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3,
+  &quot;fromUser&quot;: false
+}</component>
   <component name="ProjectId" id="3Lpseso7UZaM0Ux00RU3wZXEOvi" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -54,7 +57,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "cidr.known.project.marker": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -105,6 +108,7 @@
       <option name="presentableId" value="Default" />
       <updated>1794162443448</updated>
       <workItem from="1794162446040" duration="319000" />
+      <workItem from="1794185639494" duration="953000" />
     </task>
     <servers />
   </component>
