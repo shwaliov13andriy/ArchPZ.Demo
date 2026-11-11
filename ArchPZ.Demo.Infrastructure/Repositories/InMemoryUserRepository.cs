@@ -1,12 +1,12 @@
-﻿namespace ArchPZ.Demo.Infrastructure.Repositories;
+namespace ArchPZ.Demo.Infrastructure.Repositories;
 
 using ArchPZ.Demo.Domain.UserManagement.Entities;
 using ArchPZ.Demo.Domain.UserManagement.Repositories;
 
 public class InMemoryUserRepository : IUserRepository
 {
-    private readonly List<User> _users = new();
-    private readonly object _lock = new();
+    private static readonly List<User> _users = new();
+    private static readonly object _lock = new();
 
     public Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {

@@ -1,11 +1,10 @@
-﻿using ArchPZ.Demo.Infrastructure;
+using ArchPZ.Demo.Application;
+using ArchPZ.Demo.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddMediatR(cfg =>
-    cfg.RegisterServicesFromAssembly(typeof(ArchPZ.Demo.Application.DTOs.OrderDto).Assembly));
-
-builder.Services.AddInfrastructure();
+builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices();
 
 builder.Services.AddControllers();
 

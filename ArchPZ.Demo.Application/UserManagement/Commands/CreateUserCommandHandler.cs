@@ -1,4 +1,4 @@
-﻿namespace ArchPZ.Demo.Application.UserManagement.Commands;
+namespace ArchPZ.Demo.Application.UserManagement.Commands;
 
 using MediatR;
 using ArchPZ.Demo.Application.DTOs;
@@ -10,17 +10,19 @@ using ArchPZ.Demo.Domain.UserManagement.ValueObjects;
 public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserDto>
 {
     private readonly IUserRepository _userRepository;
+    private readonly IUserMapper _userMapper;
 
-    public CreateUserCommandHandler(IUserRepository userRepository)
+    public CreateUserCommandHandler(IUserRepository userRepository, IUserMapper userMapper)
     {
         _userRepository = userRepository;
+        _userMapper = userMapper;
     }
 
     public async Task<UserDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         var existingUser = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
         if (existingUser != null)
-            throw new InvalidOperationException($"РљРѕСЂРёСЃС‚СѓРІР°С‡ Р· email '{request.Email}' РІР¶Рµ С–СЃРЅСѓС”.");
+            throw new InvalidOperationException($"Користувач з email '{request.Email}' вже існує.");
 
         var name = new FullName(request.FirstName, request.LastName);
         var email = new Email(request.Email);
@@ -29,6 +31,6 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserD
 
         await _userRepository.AddAsync(user, cancellationToken);
 
-        return user.ToDto();
+        return _userMapper.ToDto(user);
     }
 }
