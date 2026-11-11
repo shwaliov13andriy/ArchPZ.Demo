@@ -4,7 +4,6 @@ using ArchPZ.Demo.Application.Contracts;
 using ArchPZ.Demo.Application.Events;
 using ArchPZ.Demo.Application.OrderManagement.Events;
 using ArchPZ.Demo.Application.OrderManagement.Events.Handlers;
-using ArchPZ.Demo.Application.OrderManagement.Factories;
 using ArchPZ.Demo.Domain.Contracts;
 using ArchPZ.Demo.Domain.OrderManagement.Repositories;
 using ArchPZ.Demo.Domain.UserManagement.Repositories;
@@ -14,10 +13,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
-        services.AddSingleton<IOrderRepository, InMemoryOrderRepository>();
-        services.AddSingleton<IUserRepository, InMemoryUserRepository>();
+        services.AddScoped<IOrderRepository, InMemoryOrderRepository>();
+        services.AddScoped<IUserRepository, InMemoryUserRepository>();
 
         services.AddScoped<ICustomerValidationService, CustomerValidationService>();
 
@@ -25,7 +24,6 @@ public static class DependencyInjection
         services.AddTransient<IEventHandler<OrderCreatedEvent>, OrderCreatedNotificationHandler>();
         services.AddTransient<IEventHandler<OrderCreatedEvent>, OrderCreatedAnalyticsHandler>();
 
-        services.AddTransient<IOrderFactory, OrderFactory>();
         services.AddSingleton<ILoggerService, ConsoleLoggerService>();
 
         return services;

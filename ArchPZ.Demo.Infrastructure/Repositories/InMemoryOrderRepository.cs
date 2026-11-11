@@ -1,12 +1,12 @@
-﻿namespace ArchPZ.Demo.Infrastructure.Repositories;
+namespace ArchPZ.Demo.Infrastructure.Repositories;
 
 using ArchPZ.Demo.Domain.OrderManagement.Entities;
 using ArchPZ.Demo.Domain.OrderManagement.Repositories;
 
 public class InMemoryOrderRepository : IOrderRepository
 {
-    private readonly List<Order> _orders = new();
-    private readonly object _lock = new();
+    private static readonly List<Order> _orders = new();
+    private static readonly object _lock = new();
 
     public Task<Order?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {

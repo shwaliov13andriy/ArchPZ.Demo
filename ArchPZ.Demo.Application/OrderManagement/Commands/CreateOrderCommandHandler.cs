@@ -16,17 +16,20 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Ord
     private readonly ICustomerValidationService _customerValidationService;
     private readonly IEventBus _bus;
     private readonly IOrderFactory _orderFactory;
+    private readonly IOrderMapper _orderMapper;
 
     public CreateOrderCommandHandler(
         IOrderRepository orderRepository,
         ICustomerValidationService customerValidationService,
         IEventBus bus,
-        IOrderFactory orderFactory)
+        IOrderFactory orderFactory,
+        IOrderMapper orderMapper)
     {
         _orderRepository = orderRepository;
         _customerValidationService = customerValidationService;
         _bus = bus;
         _orderFactory = orderFactory;
+        _orderMapper = orderMapper;
     }
 
     public async Task<OrderDto> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
@@ -47,6 +50,6 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Ord
             new OrderCreatedEvent(order.Id, request.CustomerId.ToString(), total.Amount),
             cancellationToken);
 
-        return order.ToDto();
+        return _orderMapper.ToDto(order);
     }
 }
