@@ -1,6 +1,7 @@
 namespace ArchPZ.Demo.Application.OrderManagement.Commands;
 
 using MediatR;
+using ArchPZ.Demo.Application.Common;
 using ArchPZ.Demo.Application.DTOs;
 using ArchPZ.Demo.Application.Events;
 using ArchPZ.Demo.Application.Mapping;
@@ -17,19 +18,22 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Ord
     private readonly IEventBus _bus;
     private readonly IOrderFactory _orderFactory;
     private readonly IOrderMapper _orderMapper;
+    private readonly IUnitOfWork _unitOfWork;
 
     public CreateOrderCommandHandler(
         IOrderRepository orderRepository,
         ICustomerValidationService customerValidationService,
         IEventBus bus,
         IOrderFactory orderFactory,
-        IOrderMapper orderMapper)
+        IOrderMapper orderMapper,
+        IUnitOfWork unitOfWork)
     {
         _orderRepository = orderRepository;
         _customerValidationService = customerValidationService;
         _bus = bus;
         _orderFactory = orderFactory;
         _orderMapper = orderMapper;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<OrderDto> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
@@ -44,6 +48,7 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Ord
         var order = _orderFactory.CreateNewOrder(request, address);
 
         await _orderRepository.AddAsync(order, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         var total = order.CalculateTotal();
         await _bus.PublishAsync(
