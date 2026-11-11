@@ -1,11 +1,11 @@
-﻿namespace ArchPZ.Demo.Application.DTOs;
+namespace ArchPZ.Demo.Application.DTOs;
 
-public class OrderItemDto
+public record OrderItemDto
 {
-    public Guid Id { get; set; }
-    public Guid ProductId { get; set; }
-    public string ProductName { get; set; } = string.Empty;
-    public int Quantity { get; set; }
-    public decimal UnitPrice { get; set; }
-    public decimal TotalPrice { get; set; }
+    public Guid Id { get; init; }
+    public Guid ProductId { get; init; }
+    public string ProductName { get; init; } = string.Empty;
+    public int Quantity { get; init; }
+    public decimal UnitPrice { get; init; }
+    public decimal TotalPrice { get; init; }
 }

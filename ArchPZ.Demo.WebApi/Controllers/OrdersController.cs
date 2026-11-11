@@ -1,4 +1,4 @@
-﻿namespace ArchPZ.Demo.WebApi.Controllers;
+namespace ArchPZ.Demo.WebApi.Controllers;
 
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +19,7 @@ public class OrdersController : ControllerBase
 
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyList<OrderDto>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
+    public async Task<ActionResult<IReadOnlyList<OrderDto>>> GetAll(CancellationToken cancellationToken)
     {
         var orders = await _mediator.Send(new GetAllOrdersQuery(), cancellationToken);
         return Ok(orders);
@@ -28,12 +28,12 @@ public class OrdersController : ControllerBase
     [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(OrderDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
+    public async Task<ActionResult<OrderDto>> GetById(Guid id, CancellationToken cancellationToken)
     {
         var order = await _mediator.Send(new GetOrderByIdQuery(id), cancellationToken);
 
         if (order is null)
-            return NotFound(new { Message = $"Р—Р°РјРѕРІР»РµРЅРЅСЏ Р· Id '{id}' РЅРµ Р·РЅР°Р№РґРµРЅРѕ." });
+            return NotFound(new { Message = $"Замовлення з Id '{id}' не знайдено." });
 
         return Ok(order);
     }
@@ -41,7 +41,7 @@ public class OrdersController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(OrderDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Create(
+    public async Task<ActionResult<OrderDto>> Create(
         [FromBody] CreateOrderCommand command,
         CancellationToken cancellationToken)
     {
@@ -60,14 +60,14 @@ public class OrdersController : ControllerBase
     [ProducesResponseType(typeof(OrderDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Confirm(Guid id, CancellationToken cancellationToken)
+    public async Task<ActionResult<OrderDto>> Confirm(Guid id, CancellationToken cancellationToken)
     {
         try
         {
             var order = await _mediator.Send(new ConfirmOrderCommand(id), cancellationToken);
             return Ok(order);
         }
-        catch (InvalidOperationException ex) when (ex.Message.Contains("РЅРµ Р·РЅР°Р№РґРµРЅРѕ"))
+        catch (InvalidOperationException ex) when (ex.Message.Contains("не знайдено"))
         {
             return NotFound(new { ex.Message });
         }
@@ -88,7 +88,7 @@ public class OrdersController : ControllerBase
             await _mediator.Send(new CancelOrderCommand(id), cancellationToken);
             return NoContent();
         }
-        catch (InvalidOperationException ex) when (ex.Message.Contains("РЅРµ Р·РЅР°Р№РґРµРЅРѕ"))
+        catch (InvalidOperationException ex) when (ex.Message.Contains("не знайдено"))
         {
             return NotFound(new { ex.Message });
         }

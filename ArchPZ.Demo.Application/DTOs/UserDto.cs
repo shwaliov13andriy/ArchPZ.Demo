@@ -1,11 +1,10 @@
-﻿namespace ArchPZ.Demo.Application.DTOs;
+namespace ArchPZ.Demo.Application.DTOs;
 
-public class UserDto
+public record UserDto
 {
-    public Guid Id { get; set; }
-    public string FirstName { get; set; } = string.Empty;
-    public string LastName { get; set; } = string.Empty;
-    public string Email { get; set; } = string.Empty;
-    public string Role { get; set; } = string.Empty;
-    public bool IsActive { get; set; }
+    public Guid Id { get; init; }
+    public string FullName { get; init; } = string.Empty;
+    public string Email { get; init; } = string.Empty;
+    public string Role { get; init; } = string.Empty;
+    public bool IsActive { get; init; }
 }
