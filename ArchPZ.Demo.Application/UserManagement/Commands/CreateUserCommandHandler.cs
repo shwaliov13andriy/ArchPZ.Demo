@@ -1,6 +1,7 @@
 namespace ArchPZ.Demo.Application.UserManagement.Commands;
 
 using MediatR;
+using ArchPZ.Demo.Application.Common;
 using ArchPZ.Demo.Application.DTOs;
 using ArchPZ.Demo.Application.Mapping;
 using ArchPZ.Demo.Domain.UserManagement.Entities;
@@ -11,11 +12,16 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserD
 {
     private readonly IUserRepository _userRepository;
     private readonly IUserMapper _userMapper;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CreateUserCommandHandler(IUserRepository userRepository, IUserMapper userMapper)
+    public CreateUserCommandHandler(
+        IUserRepository userRepository,
+        IUserMapper userMapper,
+        IUnitOfWork unitOfWork)
     {
         _userRepository = userRepository;
         _userMapper = userMapper;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<UserDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
@@ -30,6 +36,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserD
         var user = User.Create(name, email);
 
         await _userRepository.AddAsync(user, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return _userMapper.ToDto(user);
     }
