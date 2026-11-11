@@ -1,4 +1,4 @@
-﻿namespace ArchPZ.Demo.Application.Mapping;
+namespace ArchPZ.Demo.Application.Mapping;
 
 using ArchPZ.Demo.Application.DTOs;
 using ArchPZ.Demo.Domain.OrderManagement.Entities;
@@ -31,5 +31,10 @@ public static class OrderMappingExtensions
             UnitPrice = item.UnitPrice.Amount,
             TotalPrice = item.GetTotalPrice().Amount
         };
+    }
+
+    public static IReadOnlyList<OrderDto> ToDtoList(this IEnumerable<Order> orders)
+    {
+        return orders.Select(ToDto).ToList();
     }
 }

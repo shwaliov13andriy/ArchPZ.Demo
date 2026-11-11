@@ -1,13 +1,13 @@
-﻿namespace ArchPZ.Demo.Application.DTOs;
+namespace ArchPZ.Demo.Application.DTOs;
 
-public class OrderDto
+public record OrderDto
 {
-    public Guid Id { get; set; }
-    public Guid CustomerId { get; set; }
-    public string Status { get; set; } = string.Empty;
-    public string ShippingAddress { get; set; } = string.Empty;
-    public decimal TotalAmount { get; set; }
-    public string? Notes { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public List<OrderItemDto> Items { get; set; } = new();
+    public Guid Id { get; init; }
+    public Guid CustomerId { get; init; }
+    public string Status { get; init; } = string.Empty;
+    public string ShippingAddress { get; init; } = string.Empty;
+    public decimal TotalAmount { get; init; }
+    public string? Notes { get; init; }
+    public DateTime CreatedAt { get; init; }
+    public IReadOnlyList<OrderItemDto> Items { get; init; } = [];
 }

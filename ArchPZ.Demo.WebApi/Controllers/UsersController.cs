@@ -1,4 +1,4 @@
-﻿namespace ArchPZ.Demo.WebApi.Controllers;
+namespace ArchPZ.Demo.WebApi.Controllers;
 
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -20,12 +20,12 @@ public class UsersController : ControllerBase
     [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
+    public async Task<ActionResult<UserDto>> GetById(Guid id, CancellationToken cancellationToken)
     {
         var user = await _mediator.Send(new GetUserByIdQuery(id), cancellationToken);
 
         if (user is null)
-            return NotFound(new { Message = $"РљРѕСЂРёСЃС‚СѓРІР°С‡Р° Р· Id '{id}' РЅРµ Р·РЅР°Р№РґРµРЅРѕ." });
+            return NotFound(new { Message = $"Користувача з Id '{id}' не знайдено." });
 
         return Ok(user);
     }
@@ -33,7 +33,7 @@ public class UsersController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(UserDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Create(
+    public async Task<ActionResult<UserDto>> Create(
         [FromBody] CreateUserCommand command,
         CancellationToken cancellationToken)
     {

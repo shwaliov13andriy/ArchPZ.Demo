@@ -7,29 +7,11 @@ public class OrderMapper : IOrderMapper
 {
     public OrderDto ToDto(Order order)
     {
-        return new OrderDto
-        {
-            Id = order.Id,
-            CustomerId = order.CustomerId,
-            Status = order.Status.ToString(),
-            ShippingAddress = order.ShippingAddress.ToString(),
-            TotalAmount = order.CalculateTotal().Amount,
-            Notes = order.Notes,
-            CreatedAt = order.CreatedAt,
-            Items = order.Items.Select(ToDto).ToList()
-        };
+        return order.ToDto();
     }
 
     public OrderItemDto ToDto(OrderItem item)
     {
-        return new OrderItemDto
-        {
-            Id = item.Id,
-            ProductId = item.ProductId,
-            ProductName = item.ProductName,
-            Quantity = item.Quantity,
-            UnitPrice = item.UnitPrice.Amount,
-            TotalPrice = item.GetTotalPrice().Amount
-        };
+        return item.ToDto();
     }
 }
