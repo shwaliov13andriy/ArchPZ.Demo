@@ -44,7 +44,12 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Ord
         if (!customerExists)
             throw new InvalidOperationException($"Клієнта з Id '{request.CustomerId}' не знайдено.");
 
-        var address = new Address(request.Street, request.City, request.ZipCode, request.Country);
+        var street = !string.IsNullOrWhiteSpace(request.ShippingAddress) ? request.ShippingAddress : request.Street;
+        var city = !string.IsNullOrWhiteSpace(request.City) ? request.City : "Київ";
+        var zipCode = !string.IsNullOrWhiteSpace(request.ZipCode) ? request.ZipCode : "01001";
+        var country = !string.IsNullOrWhiteSpace(request.Country) ? request.Country : "Україна";
+
+        var address = new Address(street, city, zipCode, country);
         var order = _orderFactory.CreateNewOrder(request, address);
 
         await _orderRepository.AddAsync(order, cancellationToken);

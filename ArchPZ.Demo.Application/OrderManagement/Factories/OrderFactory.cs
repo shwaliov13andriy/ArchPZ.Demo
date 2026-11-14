@@ -10,10 +10,17 @@ public class OrderFactory : IOrderFactory
     {
         var order = Order.Create(command.CustomerId, address, command.Notes);
 
-        foreach (var item in command.Items)
+        if (command.Items.Count == 0 && command.TotalAmount > 0)
         {
-            var unitPrice = new Money(item.UnitPrice, item.Currency);
-            order.AddItem(item.ProductId, item.ProductName, item.Quantity, unitPrice);
+            order.AddItem(Guid.NewGuid(), "Товар", 1, new Money(command.TotalAmount, "UAH"));
+        }
+        else
+        {
+            foreach (var item in command.Items)
+            {
+                var unitPrice = new Money(item.UnitPrice, item.Currency);
+                order.AddItem(item.ProductId, item.ProductName, item.Quantity, unitPrice);
+            }
         }
 
         return order;
