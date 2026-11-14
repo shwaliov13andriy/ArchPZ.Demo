@@ -40,61 +40,30 @@ public class OrdersController : ControllerBase
 
     [HttpPost]
     [ProducesResponseType(typeof(OrderDto), StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<OrderDto>> Create(
         [FromBody] CreateOrderCommand command,
         CancellationToken cancellationToken)
     {
-        try
-        {
-            var order = await _mediator.Send(command, cancellationToken);
-            return CreatedAtAction(nameof(GetById), new { id = order.Id }, order);
-        }
-        catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
-        {
-            return BadRequest(new { ex.Message });
-        }
+        var order = await _mediator.Send(command, cancellationToken);
+        return CreatedAtAction(nameof(GetById), new { id = order.Id }, order);
     }
 
     [HttpPut("{id:guid}/confirm")]
     [ProducesResponseType(typeof(OrderDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<OrderDto>> Confirm(Guid id, CancellationToken cancellationToken)
     {
-        try
-        {
-            var order = await _mediator.Send(new ConfirmOrderCommand(id), cancellationToken);
-            return Ok(order);
-        }
-        catch (InvalidOperationException ex) when (ex.Message.Contains("не знайдено"))
-        {
-            return NotFound(new { ex.Message });
-        }
-        catch (InvalidOperationException ex)
-        {
-            return BadRequest(new { ex.Message });
-        }
+        var order = await _mediator.Send(new ConfirmOrderCommand(id), cancellationToken);
+        return Ok(order);
     }
 
     [HttpPut("{id:guid}/cancel")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Cancel(Guid id, CancellationToken cancellationToken)
     {
-        try
-        {
-            await _mediator.Send(new CancelOrderCommand(id), cancellationToken);
-            return NoContent();
-        }
-        catch (InvalidOperationException ex) when (ex.Message.Contains("не знайдено"))
-        {
-            return NotFound(new { ex.Message });
-        }
-        catch (InvalidOperationException ex)
-        {
-            return BadRequest(new { ex.Message });
-        }
+        await _mediator.Send(new CancelOrderCommand(id), cancellationToken);
+        return NoContent();
     }
 }

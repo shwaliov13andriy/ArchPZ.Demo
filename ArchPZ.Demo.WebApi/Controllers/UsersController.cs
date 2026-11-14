@@ -32,19 +32,12 @@ public class UsersController : ControllerBase
 
     [HttpPost]
     [ProducesResponseType(typeof(UserDto), StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<UserDto>> Create(
         [FromBody] CreateUserCommand command,
         CancellationToken cancellationToken)
     {
-        try
-        {
-            var user = await _mediator.Send(command, cancellationToken);
-            return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
-        }
-        catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
-        {
-            return BadRequest(new { ex.Message });
-        }
+        var user = await _mediator.Send(command, cancellationToken);
+        return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
     }
 }

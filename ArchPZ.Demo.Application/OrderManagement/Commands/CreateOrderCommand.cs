@@ -6,6 +6,8 @@ using ArchPZ.Demo.Application.DTOs;
 public record CreateOrderCommand : IRequest<OrderDto>
 {
     public Guid CustomerId { get; init; }
+    public string ShippingAddress { get; init; } = string.Empty;
+    public decimal TotalAmount { get; init; }
     public string Street { get; init; } = string.Empty;
     public string City { get; init; } = string.Empty;
     public string ZipCode { get; init; } = string.Empty;
